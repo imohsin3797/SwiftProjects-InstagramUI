@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var isLiked = false
+    var likeCount = 450000
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             HStack {
@@ -27,17 +30,25 @@ struct ContentView: View {
                 .resizable()
                 .scaledToFit()
             HStack(spacing: 16) {
-                Image(systemName: "heart")
+                
+                Button(action: {
+                    isLiked.toggle()
+                }) {
+                    Image(systemName: isLiked ? "heart.fill" : "heart")
+                        .foregroundColor(isLiked ? .red : .black)
+                        .animation(.easeInOut(duration: 0.1), value: isLiked)
+                }
+                
                 Image(systemName: "message")
                 Image(systemName: "paperplane")
                 Spacer()
                 Image(systemName: "bookmark")
             }
             .font(.title2)
-            Text("456,920 likes")
+            Text(String(isLiked ? likeCount + 1 : likeCount))
                 .font(.footnote)
                 .fontWeight(.semibold)
-            Text("**LebronLuvr23** Glorious day here in the Netherlands!")
+            Text("**TheHague** Glorious day here in the Netherlands!")
                 .font(.footnote)
             Text("February 14")
                 .font(.caption)
